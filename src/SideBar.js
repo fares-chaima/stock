@@ -54,11 +54,9 @@ const SideBar = () => {
                     
                </SubMenu>
                    <MenuItem icon={<ArchiveIcon color="#F9FAFB" sx={{ fontSize: 38 }}/>}> <span style={{fontSize: "1em"}}>archivage</span> </MenuItem>
-                   <SubMenu icon={<SettingsIcon color="#F9FAFB" sx={{ fontSize: 38 }}/>  }  label="paramètres">
-                     <MenuItem  >modifier le logo</MenuItem>
-                     <MenuItem >modifier le thème</MenuItem>
-                     <MenuItem >modifier le nom du site</MenuItem>
-               </SubMenu>
+                   <MenuItem href="/Param" icon={<SettingsIcon color="#F9FAFB" sx={{ fontSize: 38 }}  />  }  >paramètres</MenuItem>
+                   
+             
                  </Menu>
                 
                </Sidebar>

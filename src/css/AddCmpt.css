@@ -11,7 +11,7 @@ body{
     background-color: #FFFFFF;
     width: 65%;
 height: fit-content;
-margin: 150px 13%;
+margin: 150px 20%;
 border-radius: 30px ;
 
 
@@ -90,7 +90,7 @@ align-items: center;
 justify-content: center;
 }
 h6{
-    font-family: Inter;
+    
     font-size: 1.06em;
     font-weight: 400;
     line-height: 24.2px;
@@ -139,4 +139,46 @@ h6{
     display: flex;
     align-items: center; 
  }
-
+ .flx5{
+    display: flex;
+    flex-direction: column;
+    margin-left: 6%;
+ }
+.flx5 span{
+    font-size: 0.8em;
+    font-weight: 600;
+   
+    
+}
+.flx5 input{
+    border: 1px solid #9d9c9c69;
+    border-radius: 10px;
+    height: 45px;
+    padding:  0px 10px;
+}
+.flx5 .den , .flx5 .codeges , .flx5 .adr , .flx5 .tlp , .flx5 .pht{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: flex-start;
+}
+.flx5 .lft , .flx5 .rght{
+    display: flex;
+    flex-direction: row;
+    margin-top: -8%;
+}
+.flx5 .lft{
+    margin-left: 0;
+}
+.den input{
+    width: 560px;
+   
+}
+.flx5 .lft input {
+width: 245px;
+margin-right: 50px;
+}
+ .flx5 .rght input{
+    width:245px;
+    margin-right: 50px;
+ }

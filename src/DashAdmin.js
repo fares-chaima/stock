@@ -10,50 +10,11 @@ import "./css/DashAdmin.css";
 import profile from './images/prfl.jpg';
 const DashAdmin = () => {
     //le nombre de produits consommees
-    const QuantPrd = [10, 45, 35, 40, 12,35,50,100,14,50,40,35,55];
-    //les donnees de consomation de produit par chaque structure
-    const dataset = [
-        {
-          quant: 75    ,
-         
-          produit: 'Struct1',
-        },
-        {
-            quant: 100 ,
-          
-          produit: 'Struct2',
-        },
-        {
-            quant: 15,
-         
-          produit: 'Struct3',
-        },
-        {
-            quant: 45,
-         
-          produit: 'Struct4',
-        },
-        {
-            quant: 30,
-         
-          produit: 'Struct5',
-        },
-        {
-            quant: 90,
-         
-          produit: 'Struct6',
-        },
-        {
-            quant: 15,
-         
-          produit: 'Struct7',
-        },
-        
-        
-      ];
+    const cnx = [10, 45, 35, 40, 12,35,50,100,14,50,40,35,55];
+   
       
       //les donnees de BCI recu
-      const BCI =[
+      const etat =[
         { id: 0, value: 10, label: 'Comptes activés' },
         { id: 1, value: 15, label: 'Comptes désactivés' },
         
@@ -63,7 +24,7 @@ const DashAdmin = () => {
         <div className="comptes">    
         <SideBar />
 <div className="cmpt">   
-
+<div className="statc">
 <div className="top">
 <div className="d2">
         <GroupIcon  fontSize='large'/>
@@ -105,6 +66,7 @@ const DashAdmin = () => {
                 
 
                     <LineChart
+                    className='chrtl'
 sx={{
   
   '& .css-ob3hb1-MuiAreaElement-root': {
@@ -119,7 +81,7 @@ sx={{
             area: 'true',
             
             //les donneed de y
-            data: QuantPrd,color: ['#04F2E7'],
+            data: cnx,color: ['#04F2E7'],
           
         },
       ]}
@@ -129,6 +91,7 @@ sx={{
       grid={{  horizontal: true }}
     >
 <defs>
+
         <linearGradient id="myGradient" gradientTransform="rotate(90)">
           <stop offset="5%" stopColor="#01C7BE" />
           <stop offset="30%" stopColor="#04F2E7" />
@@ -164,7 +127,7 @@ sx={{
 <div className="rgt">
           <div className="ttl">
                 <p className='chrtp'>Statistiques</p>
-                    <span className='chrtT'>La consommation des produits</span>
+                    <span className='chrtT'>Statut des comptes</span>
                 </div>
                 <hr />
  
@@ -174,7 +137,7 @@ sx={{
                
                series={[
                  {
-                   data: BCI, colorMap:{colors:['#041F5A', '#01C7BE']} , innerRadius: 70,
+                   data: etat, colorMap:{colors:['#041F5A', '#01C7BE']} , innerRadius: 70,
                  },
                ]}
                colors= {['#01C7BE ','#041F5A']}
@@ -200,7 +163,7 @@ sx={{
 
 </div>
  </div>
-        
+ </div>    
 </div>
 
      );

@@ -17,9 +17,11 @@ import ChangeQuantDirect from './Directeur/ChangeQuantDirect';
 import DashDirect from './Directeur/DashDirect';
 import ListeBCIDirect from './Directeur/ListeBCIDirect';
 import Fournisseurs from './Fournisseur';
+import MddCmpt from './ModCmpt.js';
 import ModifProfile from './ModifProfile';
 import NavBar from './NavBar';
 import NewPwd from './NewPwd';
+import Param from './Param.js';
 import PwdOublieForm from './PwdOublieForm';
 import ChangeQuant from './RDS/ChangeQuant';
 import DashRds from './RDS/DashRds';
@@ -105,6 +107,13 @@ function App() {
        <Route path="/AddStructure">
         <MinNavBarAsa />
         <AddStructure />
+       </Route>
+
+
+       
+       <Route path="/Moduser/:userId">
+        <MinNavBarAsa />
+        <MddCmpt />
        </Route>
 
        <Route path="/AddFourn">
@@ -212,6 +221,10 @@ function App() {
           <DashAdmin />
         </Route>
 
+        <Route path="/Param">
+          <MinNavBarAsa />
+          <Param />
+        </Route>
 
 
       </Switch>

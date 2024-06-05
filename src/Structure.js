@@ -6,94 +6,105 @@ import { useHistory } from 'react-router-dom';
 import SideBar from "./SideBar";
 import "./css/AfficherCmpt.css";
 
+import { v4 as uuidv4 } from 'uuid';
+
 const Structure = () => {
   const history = useHistory();
+  const [rows, setRows] = React.useState([]);
+  const handleDelete = (id) => {
+    // Make API call to delete the structure
+    fetch(`http://localhost:3001/structures/${id}`, {
+      method: 'DELETE',
+    })
+      .then(response => {
+        if (response.ok) {
+          // If deletion is successful, update the rows state to reflect changes
+          const updatedRows = rows.filter(row => row.id !== id);
+          setRows(updatedRows);
+        } else {
+          throw new Error('Failed to delete structure.');
+        }
+      })
+      .catch(error => console.error('Error deleting structure:', error));
+  };
 
-    const columns = [
+
+  React.useEffect(() => {
+    // Call the backend endpoint to retrieve data for structures
+    fetch('http://localhost:3001/structures')
+      .then(response => response.json())
+      .then(data => {
+        // Update the rows state with the retrieved data
+        const rowsWithIds = data.map(item => ({ ...item, id: uuidv4() }));
+        setRows(rowsWithIds);
+      })
+      .catch(error => console.error('Error fetching data:', error));
+  }, []);
+
+  const columns = [
     
-        {
-          field: 'nom',
-          headerName: 'nom',
-          headerClassName: 'hdr',
-          flex: 1,
-        },
-        {
-          field: 'responsable',
-          headerName: 'le responsable',
-          headerClassName: 'hdr',
-          flex: 1,
-        },
-      
-        
-        {
-          field: "gérer",
-          headerName: 'gérer',
-          headerClassName: 'hdr',
-          flex: 1,
-          renderCell: (cellValues) => {
-            return (
-              <>
-              <div className="change">
-          <DeleteIcon className='dlt' sx={{ fontSize: 35 }}/>
-          <EditIcon className='icon' sx={{ fontSize: 35 }} />
+    {
+      field: 'name',
+      headerName: 'nom',
+      headerClassName: 'hdr',
+      flex: 1,
+    },
+    {
+      field: 'responsable',
+      headerName: 'le responsable',
+      headerClassName: 'hdr',
+      flex: 1,
+    },
+    {
+      field: "gérer",
+      headerName: 'gérer',
+      headerClassName: 'hdr',
+      flex: 1,
+      renderCell: (params) => {
+        return (
+          <div className="change">
+            <DeleteIcon className='dlt' sx={{ fontSize: 35 }} onClick={() => handleDelete(params.row.id)} />
+            <EditIcon className='icon' sx={{ fontSize: 35 }} />
           </div>
-              </>
-            );
-              }
-        },
-      ];
-      const rows = [
-         { id: 1, nom: 'Souha', responsable: 'Hocini'},
-         { id: 2, nom: 'Souha', responsable: 'Hocini'},
-         { id: 3, nom: 'Souha', responsable: 'Hocini'},
-         { id: 4, nom: 'Souha', responsable: 'Hocini'},
-         { id: 5, nom: 'Souha', responsable: 'Hocini'},
-       
-        ];
-    return ( 
-      <div className="comptes">    
-      <SideBar />
-    <div className="cmpt">  
-    <div className="fx1">   
-    <span>Liste des structures</span>         
-        <button onClick={()=> history.push("/AddStructure")} >+ ajouter</button>  
-        </div>         
-            <div style={{ height: 300, width: '100%' }}>
-     
-      <DataGrid
-      sx={{
-        '.MuiDataGrid-columnSeparator': {
-          display: 'none',
-          
-        },
-        '&.MuiDataGrid-root': {
-          border: 'none',
-        },
-        
-       
-        
-      }}
-            slots={{ toolbar: GridToolbar }}
+        );
+      }
+    },
+  ];
 
-      className='grid'
-      style={{height: "66vh"}}
-        rows={rows}
-        columns={columns}    
-        rowHeight={70}
-        autoPageSize
-        disableRowSelectionOnClick
-       getRowClassName={(params) =>
-    params.indexRelativeToCurrentPage % 2 === 0 ? 'Mui-even' : 'Mui-odd'
-  }
-     
-      />
-   
-    </div>
-                </div>
-            
+  return (
+    <div className="comptes">
+      <SideBar />
+      <div className="cmpt">
+        <div className="fx1">
+          <span>Liste des structures</span>
+          <button onClick={() => history.push("/AddStructure")}>+ ajouter</button>
         </div>
-        
-     );
+        <div style={{ height: 300, width: '100%' }}>
+          <DataGrid
+            sx={{
+              '.MuiDataGrid-columnSeparator': {
+                display: 'none',
+              },
+              '&.MuiDataGrid-root': {
+                border: 'none',
+              },
+            }}
+            slots={{ toolbar: GridToolbar }}
+            className='grid'
+            style={{ height: "66vh" }}
+            rows={rows}
+            columns={columns}
+            rowHeight={70}
+            autoPageSize
+            disableRowSelectionOnClick
+            getRowClassName={(params) =>
+              params.indexRelativeToCurrentPage % 2 === 0 ? 'Mui-even' : 'Mui-odd'
+            }
+          />
+        </div>
+      </div>
+    </div>
+  );
 }
- 
+
 export default Structure;
